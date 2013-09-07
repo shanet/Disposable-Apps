@@ -32,7 +32,12 @@
             android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
 
-        <receiver android:process=":remote" android:name="com.pennapps.disposableapps.UninstallReceiver"></receiver>
+        <receiver android:process=":remote" android:name="com.pennapps.disposableapps.UninstallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
 
         <receiver android:name="com.pennapps.disposableapps.PackageReceiver">
             <intent-filter>
