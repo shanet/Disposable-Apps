@@ -36,9 +36,13 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        setupAlarmsList();
-
         registerAPKInstallReceiver();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupAlarmsList();
     }
 
     private void setupAlarmsList() {
@@ -83,6 +87,7 @@ public class Main extends Activity {
                 return false;
         }
     }
+
 
     public void showDeleteDialog(final Context context, final Alarm alarm) {
 
