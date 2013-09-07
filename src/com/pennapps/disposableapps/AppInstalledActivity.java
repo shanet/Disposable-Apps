@@ -22,7 +22,7 @@ import java.util.Date;
 
 
 public class AppInstalledActivity extends Activity {
-    Database database;
+    private Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,8 @@ public class AppInstalledActivity extends Activity {
 
                     // Set the timer to uninstall the app
                     Utils.setUninstallTimer(AppInstalledActivity.this, uninstallTime, packageUri);
+
+                    Toast.makeText(AppInstalledActivity.this, AppInstalledActivity.this.getString(R.string.timerSet), Toast.LENGTH_SHORT).show();
                 }
 
                 finish();

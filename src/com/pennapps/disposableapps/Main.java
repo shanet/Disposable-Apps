@@ -35,8 +35,6 @@ public class Main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
-        registerAPKInstallReceiver();
     }
 
     @Override
@@ -58,15 +56,6 @@ public class Main extends Activity {
         
         // Set the long click menu on the alarm list
         registerForContextMenu(alarmsList);
-    }
-
-    private void registerAPKInstallReceiver() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
-        intentFilter.addAction(Intent.ACTION_INSTALL_PACKAGE);
-        intentFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
-        intentFilter.addDataScheme("package");
-        registerReceiver(new PackageReceiver(), intentFilter);
     }
 
     @Override

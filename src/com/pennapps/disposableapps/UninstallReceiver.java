@@ -11,9 +11,8 @@ import android.widget.Toast;
 
 public class UninstallReceiver extends BroadcastReceiver {
     
-    @Override public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Got uninstall", Toast.LENGTH_SHORT).show();
-
+    @Override
+    public void onReceive(Context context, Intent intent) {
         Uri packageUri = null;
 
         if (intent.getAction().equals(Intent.ACTION_PACKAGE_REMOVED)) {
