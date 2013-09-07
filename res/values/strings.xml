@@ -3,7 +3,14 @@
 
     <string name="app_name">Disposable Apps</string>
     <string name="action_settings">Settings</string>
+    <string name="nullStr">null</string>
     <string name="appInstalledActivityTitle">App Disposal Time</string>
+
+    <string name="helpLabel">TODO: Write intro/help text</string>
+    <string name="emptyListLabel">No alarms yet.</string>
+
+    <string name="cancelAlarm">Cancel Alarm</string>
+    <string name="editAlarm">Edit Alarm</string>
 
     <string name="timerButton">Set Timer</string>
 

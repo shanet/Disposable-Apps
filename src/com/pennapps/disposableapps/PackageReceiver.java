@@ -15,6 +15,7 @@ public class PackageReceiver extends BroadcastReceiver {
 
         // Start the app install activity
         intent = new Intent(context, AppInstalledActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("packageUri", packageUri);
         context.startActivity(intent);
     }
