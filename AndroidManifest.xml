@@ -32,6 +32,12 @@
             android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
 
+        <activity
+                android:name="com.pennapps.disposableapps.EditAlarm"
+                android:label="@string/appInstalledActivityTitle"
+                android:theme="@android:style/Theme.Holo.Dialog">
+        </activity>
+
         <receiver android:process=":remote" android:name="com.pennapps.disposableapps.UninstallReceiver"></receiver>
 
         <receiver android:name="com.pennapps.disposableapps.PackageUninstalledReceiver">

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -70,11 +71,25 @@ public class Main extends Activity {
                 return true;
             case R.id.editAlarm:
                 // TODO: this
-                //showEditDialog(this, selectedAlarm);
+                showEditDialog(this, selectedAlarm.getPackageUri());
+                return true;
+            case R.id.uninstallAlarmApp:
                 return true;
             default:
                 return false;
         }
+    }
+
+    public void showEditDialog(final Context context, final Uri packageUri){
+
+        Intent intent = new Intent(context, EditAlarm.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("packageUri", packageUri);
+        context.startActivity(intent);
+
+        // Tell the main activity to reload the alarms
+        ((Main) context).setupAlarmsList();
+
     }
 
 
