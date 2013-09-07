@@ -29,8 +29,6 @@ public class Main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        setupAlarmsList();
-
         registerAPKInstallReceiver();
     }
 
