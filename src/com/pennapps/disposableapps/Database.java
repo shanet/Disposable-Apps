@@ -94,7 +94,7 @@ public class Database extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS + " WHERE " + FIELD_ALARMS_PACKAGE + " = " + packageUri.toString(), null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS + " WHERE " + FIELD_ALARMS_PACKAGE + " = \"" + packageUri.toString() + "\"", null);
 
         // If no results, just close the connection and return an empty list
         if(!cursor.moveToFirst()) {
@@ -121,7 +121,7 @@ public class Database extends SQLiteOpenHelper {
         values.put(FIELD_ALARMS_DATE, alarmInfo.getAlarmDate().getTime());
 
         // This bit is based on the idea that we'd only ever want an entry for an app once.  That entry should then be updated
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS + " WHERE " + FIELD_ALARMS_PACKAGE + " = " + alarmInfo.getPackageUri().toString(), null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS + " WHERE " + FIELD_ALARMS_PACKAGE + " = \"" + alarmInfo.getPackageUri().toString() + "\"", null);
 
         int aid;
         if (!cursor.moveToFirst())

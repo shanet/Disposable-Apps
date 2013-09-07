@@ -22,12 +22,16 @@ import java.util.Date;
 
 
 public class AppInstalledActivity extends Activity {
+    Database database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_installed);
 
         final Uri packageUri = getIntent().getParcelableExtra("packageUri");
+
+        database = new Database(this);
 
         Button timerButton = (Button) findViewById(R.id.timerButton);
         timerButton.setOnClickListener(new View.OnClickListener() {
@@ -38,13 +42,10 @@ public class AppInstalledActivity extends Activity {
 
                 // Skip the uninstall timer if the forever option was selected
                 if(uninstallTime != 0) {
-
                     final Date alarmDate = new Date(System.currentTimeMillis() + uninstallTime);
+                    final Alarm alarm = new Alarm(0, packageUri, alarmDate);
 
-                    final AlarmInfo alarmInfo = new AlarmInfo(0, packageUri, alarmDate);
-                    final Database alarmDb = new Database(AppInstalledActivity.this);
-
-                    alarmInfo.setAid(alarmDb.insertAlarmInfo(alarmInfo));
+                    alarm.setAid(database.insertAlarm(alarm));
 
                     Utils.setUninstallTimer(AppInstalledActivity.this, uninstallTime, packageUri);
                 }
