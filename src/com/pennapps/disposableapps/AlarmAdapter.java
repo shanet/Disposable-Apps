@@ -11,11 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 
-public class AlarmAdapter extends ArrayAdapter<AlarmInfo> {
+public class AlarmAdapter extends ArrayAdapter<Alarm> {
     private Context context;
-    private ArrayList<AlarmInfo> alarms;
+    private ArrayList<Alarm> alarms;
     
-    public AlarmAdapter(Context context, ArrayList<AlarmInfo> alarms) {
+    public AlarmAdapter(Context context, ArrayList<Alarm> alarms) {
         super(context, R.layout.alarm_adapter, alarms);
         this.context = context;
         this.alarms = alarms;

@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Date;
+
 
 public class AppInstalledActivity extends Activity {
     @Override
@@ -36,24 +38,19 @@ public class AppInstalledActivity extends Activity {
 
                 // Skip the uninstall timer if the forever option was selected
                 if(uninstallTime != 0) {
-                    setUninstallTimer(uninstallTime, packageUri);
+
+                    final Date alarmDate = new Date(System.currentTimeMillis() + uninstallTime);
+
+                    final AlarmInfo alarmInfo = new AlarmInfo(0, packageUri, alarmDate);
+                    final Database alarmDb = new Database(AppInstalledActivity.this);
+
+                    alarmInfo.setAid(alarmDb.insertAlarmInfo(alarmInfo));
+
+                    Utils.setUninstallTimer(AppInstalledActivity.this, uninstallTime, packageUri);
                 }
                 finish();
             }
         });
 
-    }
-
-    private void setUninstallTimer(final long milliseconds, final Uri packageUri) {
-        final Intent intent = new Intent(this, UninstallReceiver.class);
-        intent.putExtra("packageUri", packageUri);
-
-        PendingIntent uninstallIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-        
-        if(uninstallIntent != null) {
-            AlarmManager am = (AlarmManager) this.getSystemService(this.ALARM_SERVICE);
-            am.cancel(uninstallIntent);
-            am.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + milliseconds, uninstallIntent);
-        }
     }
 }

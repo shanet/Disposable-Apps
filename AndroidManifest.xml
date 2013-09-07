@@ -35,6 +35,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.INSTALL_PACKAGE" />
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>

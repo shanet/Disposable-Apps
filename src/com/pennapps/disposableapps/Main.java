@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 
 public class Main extends Activity {
-    ArrayList<AlarmInfo> alarms;
+    ArrayList<Alarm> alarms;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +45,14 @@ public class Main extends Activity {
         alarmsList.setAdapter(alarmAdapter);
         
         // Set the long click menu on the alarm list
-        registerForContextMenu(alarmList);
+        registerForContextMenu(alarmsList);
     }
 
     private void registerAPKInstallReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addAction(Intent.ACTION_INSTALL_PACKAGE);
+        intentFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
         intentFilter.addDataScheme("package");
         registerReceiver(new PackageReceiver(), intentFilter);
     }
@@ -60,7 +61,7 @@ public class Main extends Activity {
     public boolean onContextItemSelected(MenuItem item) {
         // Get the selected alarm
         AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-        AlarmInfo selectedAlarm = alarms.get(menuInfo.position);
+        Alarm selectedAlarm = alarms.get(menuInfo.position);
         
         switch (item.getItemId()) {
             case R.id.cancelAlarm:
