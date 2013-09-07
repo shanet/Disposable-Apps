@@ -19,30 +19,23 @@ public class PackageReceiver extends BroadcastReceiver {
         Uri packageUri = intent.getData();
 
         // Start the app install activity
-        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED))
-        {
+        if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             Database alarmDb = new Database(context);
-            ArrayList<AlarmInfo> alarms = alarmDb.selectAllAlarmInfos();
+            ArrayList<Alarm> alarms = alarmDb.selectAllAlarms();
 
-            for (AlarmInfo info : alarms)
-            {
+            for (Alarm info : alarms) {
                 long alarmDate = info.getAlarmDate().getTime();
                 long currentDate = System.currentTimeMillis();
 
                 long alarmSetDate = alarmDate - currentDate;
 
-                if (alarmSetDate > 0)
-                {
+                if (alarmSetDate > 0) {
                      Utils.setUninstallTimer(context, alarmSetDate, info.getPackageUri());
-                }
-                else
-                {
+                } else {
                     Utils.setUninstallTimer(context, 10000, info.getPackageUri());
                 }
             }
-        }
-        else if (intent.getAction().equals(Intent.ACTION_INSTALL_PACKAGE) || intent.getAction().equals(Intent.ACTION_PACKAGE_ADDED))
-        {
+        } else if (intent.getAction().equals(Intent.ACTION_INSTALL_PACKAGE) || intent.getAction().equals(Intent.ACTION_PACKAGE_ADDED)) {
             intent = new Intent(context, AppInstalledActivity.class);
             intent.putExtra("packageUri", packageUri);
             context.startActivity(intent);

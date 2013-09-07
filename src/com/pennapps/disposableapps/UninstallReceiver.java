@@ -17,6 +17,11 @@ public class UninstallReceiver extends BroadcastReceiver {
 
         Uri packageUri = intent.getParcelableExtra("packageUri");
         startUninstallIntent(context, packageUri);
+
+        Database db = new Database(context);
+
+        Alarm alarm = db.selectAlarmInfoFromPackageUri(packageUri);
+        db.deleteAlarm(alarm);
     }
 
     private void startUninstallIntent(final Context context, final Uri packageUri) {

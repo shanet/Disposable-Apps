@@ -1,8 +1,5 @@
 package com.pennapps.disposableapps;
 
-/**
- * Created by Joseph on 9/7/13.
- */
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,15 +11,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 
+
 public class Database extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "DisposableApps";
     private static final int DATABASE_VERSION = 1;
 
     private static final String TABLE_ALARMS  = "alarms";
 
-    private static final String FIELD_ALARMS_KEY    = "aid";
+    private static final String FIELD_ALARMS_KEY      = "aid";
     private static final String FIELD_ALARMS_PACKAGE  = "package";
-    private static final String FIELD_ALARMS_DATE   = "date";
+    private static final String FIELD_ALARMS_DATE     = "date";
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,7 +45,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public AlarmInfo selectAlarmInfo(int aid) {
+    public Alarm selectAlarm(int aid) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Query the db for the given relay with rid
@@ -59,22 +57,22 @@ public class Database extends SQLiteOpenHelper {
             return null;
         }
 
-        // Create a new alarminfo object and return it
-        AlarmInfo alarmInfo = new AlarmInfo(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2)));
+        // Create a new Alarm object and return it
+        Alarm alarmInfo = new Alarm(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2)));
 
         db.close();
         return alarmInfo;
     }
 
 
-    public ArrayList<AlarmInfo> selectAllAlarmInfos() {
+    public ArrayList<Alarm> selectAllAlarms() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Query the db for all relays
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS, null);
 
         // Add each result to an ArrayList
-        ArrayList<AlarmInfo> alarms = new ArrayList<AlarmInfo>();
+        ArrayList<Alarm> alarms = new ArrayList<Alarm>();
 
         // Go to the first result or result null if it doesn't exist
         if(!cursor.moveToFirst()) {
@@ -83,14 +81,14 @@ public class Database extends SQLiteOpenHelper {
         }
 
         do{
-            alarms.add(new AlarmInfo(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2))));
+            alarms.add(new Alarm(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2))));
         } while(cursor.moveToNext());
 
         db.close();
         return alarms;
     }
 
-    public AlarmInfo selectAlarmInfoFromPackageUri(Uri packageUri) {
+    public Alarm selectAlarmInfoFromPackageUri(Uri packageUri) {
         if (packageUri == null)
             return null;
 
@@ -104,15 +102,14 @@ public class Database extends SQLiteOpenHelper {
             return null;
         }
 
-        // Create a new alarminfo object and return it
-        AlarmInfo alarmInfo = new AlarmInfo(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2)));
+        // Create a new alarm object and return it
+        Alarm alarmInfo = new Alarm(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2)));
 
         db.close();
         return alarmInfo;
     }
 
-
-    public int insertAlarmInfo(AlarmInfo alarmInfo) {
+    public int insertAlarm(Alarm alarmInfo) {
         if (alarmInfo == null)
             return -1;
 
@@ -134,7 +131,7 @@ public class Database extends SQLiteOpenHelper {
         }
         else
         {
-            updateAlarmInfo(alarmInfo);
+            updateAlarm(alarmInfo);
             aid = alarmInfo.getAid();
         }
         db.close();
@@ -142,8 +139,7 @@ public class Database extends SQLiteOpenHelper {
         return aid;
     }
 
-
-    public int updateAlarmInfo(AlarmInfo alarmInfo) {
+    public int updateAlarm(Alarm alarmInfo) {
         if (alarmInfo == null)
             return Constants.FAILURE;
 
@@ -163,8 +159,7 @@ public class Database extends SQLiteOpenHelper {
         return Constants.SUCCESS;
     }
 
-
-    public int deleteAlarmInfo(AlarmInfo alarmInfo) {
+    public int deleteAlarm(Alarm alarmInfo) {
         if (alarmInfo == null)
             return Constants.FAILURE;
 
