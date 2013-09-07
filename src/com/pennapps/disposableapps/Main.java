@@ -52,6 +52,10 @@ public class Main extends Activity {
         Database database = new Database(this);
         alarms = database.selectAllAlarms();
 
+        if(alarms.size() > 0) {
+            findViewById(R.id.alarmsListLabel).setVisibility(View.VISIBLE);
+        }
+
         AlarmAdapter alarmAdapter = new AlarmAdapter(this, alarms);
         alarmsList.setAdapter(alarmAdapter);
         
@@ -70,8 +74,7 @@ public class Main extends Activity {
                 showDeleteDialog(this, selectedAlarm);
                 return true;
             case R.id.editAlarm:
-                // TODO: this
-                showEditDialog(this, selectedAlarm.getPackageUri());
+                showEditDialog(selectedAlarm.getPackageUri());
                 return true;
             case R.id.uninstallAlarmApp:
                 Utils.setUninstallTimer(this, 100, selectedAlarm.getPackageUri());
@@ -81,16 +84,13 @@ public class Main extends Activity {
         }
     }
 
-    public void showEditDialog(final Context context, final Uri packageUri){
-
-        Intent intent = new Intent(context, EditAlarm.class);
+    public void showEditDialog(final Uri packageUri) {
+        Intent intent = new Intent(this, EditAlarm.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("packageUri", packageUri);
-        context.startActivity(intent);
+        startActivity(intent);
 
-        // Tell the main activity to reload the alarms
-        ((Main) context).setupAlarmsList();
-
+        setupAlarmsList();
     }
 
 
