@@ -6,8 +6,7 @@
     <string name="nullStr">null</string>
     <string name="appInstalledActivityTitle">App Disposal Time</string>
 
-    <string name="helpLabel">To add an application to monitor, simply install an app from any source.  You will be prompted for a time limit on the installed app.  If you select \'Forever,\' this app will never prompt you for uninstallation.  Any other option will request you to uninstall the app after the alloted time period. </string>
-    <string name="emptyListLabel">Add applications to monitor.</string>
+    <string name="emptyListLabel">No uninstall timers set</string>
 
     <string name="cancelAlarm">Cancel Alarm</string>
     <string name="editAlarm">Edit Alarm</string>
@@ -27,7 +26,7 @@
     <string name="timeSpinnerPrompt">Choose a country</string>
     <string-array name="timeSpinnerOptions">
         <item>Forever</item>
-        <item>Twenty seconds</item>
+        <item>Five seconds</item>
         <item>Half hour</item>
         <item>1 Hour</item>
         <item>2 Hours</item>
@@ -40,7 +39,7 @@
 
     <string-array name="timeSpinnerMilliseconds">
         <item>0</item>
-        <item>20000</item>
+        <item>5000</item>
         <item>1800000</item>
         <item>3600000</item>
         <item>7200000</item>
