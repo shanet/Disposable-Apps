@@ -12,18 +12,12 @@ import android.widget.Toast;
 public class UninstallReceiver extends BroadcastReceiver {
     
     @Override public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Got uninstall", Toast.LENGTH_SHORT).show();
 
-        Uri packageUri = null;
+        //if (intent == null || intent.getAction() == null)
+        //    return;
 
-        if (intent.getAction().equals(Intent.ACTION_PACKAGE_REMOVED)) {
-            // no need to open uninstall intent because the app is already getting removed.
-            packageUri = intent.getData();
-        } else {
-            packageUri = intent.getParcelableExtra("packageUri");
-            startUninstallIntent(context, packageUri);
-        }
-
+        Uri packageUri = intent.getParcelableExtra("packageUri");
+        startUninstallIntent(context, packageUri);
         Database db = new Database(context);
 
         Alarm alarm = db.selectAlarmFromPackageUri(packageUri);
