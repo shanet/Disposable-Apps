@@ -15,6 +15,14 @@
     <string name="timerButton">Set Timer</string>
     <string name="scheduledUninstall">Scheduled uninstall:&#160;</string>
 
+    <string name="cancelTimerTitle">Cancel Timer</string>
+    <string name="cancelTimerDialog">Are you sure you wish to stop monitoring %s?</string>
+
+    <string name="yes">Okay</string>
+    <string name="nope">Cancel</string>
+
+    <string name="deletedAlarm">Timer cancelled</string>
+
     <string name="timeSpinnerPrompt">Choose a country</string>
     <string-array name="timeSpinnerOptions">
         <item>Forever</item>

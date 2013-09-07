@@ -2,18 +2,25 @@ package com.pennapps.disposableapps;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -66,41 +73,59 @@ public class Main extends Activity {
         
         switch (item.getItemId()) {
             case R.id.cancelAlarm:
-                // TODO: this.
-                //DialogUtils.showDeleteDialog(this, selectedAlarm);
+                showDeleteDialog(this, selectedAlarm);
                 return true;
-                
+            case R.id.editAlarm:
+                // TODO: this
+                //showEditDialog(this, selectedAlarm);
+                return true;
             default:
                 return false;
         }
     }
 
-    public static void showDeleteDialog(final Context context, final Alarm alarm) {
+    public void showDeleteDialog(final Context context, final Alarm alarm) {
+
+        PackageManager pm = getApplicationContext().getPackageManager();
+
+        ApplicationInfo ai;
+        try {
+            ai = pm.getApplicationInfo(alarm.getPackageUri().toString().replace("package:", ""), 0);
+        } catch (final PackageManager.NameNotFoundException e) {
+            ai = null;
+        }
+        CharSequence appName = pm.getApplicationLabel(ai);
         // Show the dialog to confirm the deletion of alarm
         new AlertDialog.Builder(context)
-        .setTitle(R.string.deleteRelayTitle)
-        .setMessage(String.format(context.getString(R.string.deleteDialog), alarm.getName()))
-        .setIcon(R.drawable.error_icon)
+        .setTitle(R.string.cancelTimerTitle)
+        .setMessage(String.format(context.getString(R.string.cancelTimerDialog), appName))
+        .setIcon(R.drawable.action_about)
         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 // Delete the alarm from the db
-                new Database(context).deleteRelay(alarm);
-                Toast.makeText(context, R.string.deletedRelay, Toast.LENGTH_SHORT).show();
-                
+                new Database(context).deleteAlarm(alarm);
+                Toast.makeText(context, R.string.deletedAlarm, Toast.LENGTH_SHORT).show();
+
+                // Remove pending alarm
+                Utils.removeUninstallTimer(context, alarm.getPackageUri());
+
                 // Tell the main activity to reload the relays
-                ((Main)context).reloadRelaysAndGroupsFromDatabase();
+                ((Main) context).setupAlarmsList();
             }
         })
         .setNegativeButton(R.string.nope, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {}
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
         })
         .show();
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        if (v.getId()==R.id.alarmsList) {
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.alarms_context_menu, menu);
+        }
+    }
 }
