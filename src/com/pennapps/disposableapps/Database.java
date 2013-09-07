@@ -76,7 +76,7 @@ public class Database extends SQLiteOpenHelper {
         // Add each result to an ArrayList
         ArrayList<AlarmInfo> alarms = new ArrayList<AlarmInfo>();
 
-        // If no results, just close the connection and return an empty list
+        // Go to the first result or result null if it doesn't exist
         if(!cursor.moveToFirst()) {
             db.close();
             return alarms;
@@ -90,8 +90,32 @@ public class Database extends SQLiteOpenHelper {
         return alarms;
     }
 
+    public AlarmInfo selectAlarmInfoFromPackageUri(Uri packageUri) {
+        if (packageUri == null)
+            return null;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS + " WHERE " + FIELD_ALARMS_PACKAGE + " = " + packageUri.toString(), null);
+
+        // If no results, just close the connection and return an empty list
+        if(!cursor.moveToFirst()) {
+            db.close();
+            return null;
+        }
+
+        // Create a new alarminfo object and return it
+        AlarmInfo alarmInfo = new AlarmInfo(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2)));
+
+        db.close();
+        return alarmInfo;
+    }
+
 
     public int insertAlarmInfo(AlarmInfo alarmInfo) {
+        if (alarmInfo == null)
+            return -1;
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Get info from the relay
@@ -99,8 +123,20 @@ public class Database extends SQLiteOpenHelper {
         values.put(FIELD_ALARMS_PACKAGE, alarmInfo.getPackageUri().toString());
         values.put(FIELD_ALARMS_DATE, alarmInfo.getAlarmDate().getTime());
 
-        // Insert the values into the db
-        int aid = (int)db.insert(TABLE_ALARMS, null, values);
+        // This bit is based on the idea that we'd only ever want an entry for an app once.  That entry should then be updated
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS + " WHERE " + FIELD_ALARMS_PACKAGE + " = " + alarmInfo.getPackageUri().toString(), null);
+
+        int aid;
+        if (!cursor.moveToFirst())
+        {
+            // Insert the values into the db
+            aid = (int)db.insert(TABLE_ALARMS, null, values);
+        }
+        else
+        {
+            updateAlarmInfo(alarmInfo);
+            aid = alarmInfo.getAid();
+        }
         db.close();
 
         return aid;
@@ -108,6 +144,9 @@ public class Database extends SQLiteOpenHelper {
 
 
     public int updateAlarmInfo(AlarmInfo alarmInfo) {
+        if (alarmInfo == null)
+            return Constants.FAILURE;
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         if (alarmInfo.getAid() < 0)
@@ -126,6 +165,9 @@ public class Database extends SQLiteOpenHelper {
 
 
     public int deleteAlarmInfo(AlarmInfo alarmInfo) {
+        if (alarmInfo == null)
+            return Constants.FAILURE;
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Check that the relay has a valid rid
