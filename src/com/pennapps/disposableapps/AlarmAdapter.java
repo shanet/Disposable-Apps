@@ -64,7 +64,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
             long remainingTime = alarm.getTime() - System.currentTimeMillis();
             long visibleTime = remainingTime < 0 ? System.currentTimeMillis() : remainingTime;
 
-            timeLeftLabel.setText(context.getString(R.string.scheduledUninstall) + new SimpleDateFormat("kk:mm a MMM, dd yyyy").format(new Date(alarm.getTime())));
+            timeLeftLabel.setText(context.getString(R.string.scheduledUninstall) + new SimpleDateFormat("KK:mm a MMM, dd yyyy").format(new Date(alarm.getTime())));
             alarmNameLabel.setText(getApplicationLabel(ai));
         }
         
