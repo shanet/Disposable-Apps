@@ -42,13 +42,14 @@ public class AppInstalledActivity extends Activity {
 
                 // Skip the uninstall timer if the forever option was selected
                 if(uninstallTime != 0) {
-                    final Date alarmDate = new Date(System.currentTimeMillis() + uninstallTime);
-                    final Alarm alarm = new Alarm(0, packageUri, alarmDate);
-
+                    // Save the alarm info in the db
+                    final Alarm alarm = new Alarm(0, packageUri, System.currentTimeMillis() + uninstallTime);
                     alarm.setAid(database.insertAlarm(alarm));
 
+                    // Set the timer to uninstall the app
                     Utils.setUninstallTimer(AppInstalledActivity.this, uninstallTime, packageUri);
                 }
+
                 finish();
             }
         });

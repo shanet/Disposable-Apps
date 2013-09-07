@@ -58,7 +58,7 @@ public class Database extends SQLiteOpenHelper {
         }
 
         // Create a new alarm object and return it
-        Alarm alarmInfo = new Alarm(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2)));
+        Alarm alarmInfo = new Alarm(cursor.getInt(0), Uri.parse(cursor.getString(1)), cursor.getLong(2));
 
         db.close();
         return alarmInfo;
@@ -83,8 +83,8 @@ public class Database extends SQLiteOpenHelper {
         do{
             int aid = cursor.getInt(0);
             String packageString = cursor.getString(1);
-            long date = cursor.getLong(2);
-            alarms.add(new Alarm(aid, Uri.parse(packageString), new Date(date)));
+            long time = cursor.getLong(2);
+            alarms.add(new Alarm(aid, Uri.parse(packageString), time));
         } while(cursor.moveToNext());
 
         db.close();
@@ -106,22 +106,23 @@ public class Database extends SQLiteOpenHelper {
         }
 
         // Create a new alarm object and return it
-        Alarm alarmInfo = new Alarm(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2)));
+        Alarm alarmInfo = new Alarm(cursor.getInt(0), Uri.parse(cursor.getString(1)), cursor.getLong(2));
 
         db.close();
         return alarmInfo;
     }
 
     public int insertAlarm(Alarm alarmInfo) {
-        if (alarmInfo == null)
+        if (alarmInfo == null) {
             return -1;
+        }
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Get info from the alarm
         ContentValues values = new ContentValues();
         values.put(FIELD_ALARMS_PACKAGE, alarmInfo.getPackageUri().toString());
-        values.put(FIELD_ALARMS_DATE, alarmInfo.getAlarmDate().getTime());
+        values.put(FIELD_ALARMS_DATE, alarmInfo.getTime());
 
         // This bit is based on the idea that we'd only ever want an entry for an app once.  That entry should then be updated
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS + " WHERE " + FIELD_ALARMS_PACKAGE + " = \"" + alarmInfo.getPackageUri().toString() + "\"", null);
@@ -152,7 +153,7 @@ public class Database extends SQLiteOpenHelper {
         // Get info from the alarm
         ContentValues values = new ContentValues();
         values.put(FIELD_ALARMS_PACKAGE, alarmInfo.getPackageUri().toString());
-        values.put(FIELD_ALARMS_DATE, alarmInfo.getAlarmDate().getTime());
+        values.put(FIELD_ALARMS_DATE, alarmInfo.getTime());
 
         db.update(TABLE_ALARMS, values, FIELD_ALARMS_KEY + " = " + alarmInfo.getAid(), null);
         db.close();

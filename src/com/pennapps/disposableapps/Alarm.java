@@ -2,16 +2,14 @@ package com.pennapps.disposableapps;
 
 import android.net.Uri;
 
-import java.util.Date;
-
 public class Alarm {
     private int aid;
-    private Date alarmDate;
+    private long time;
     private Uri packageUri;
 
-    public Alarm(int aid, Uri uri, Date date) {
+    public Alarm(int aid, Uri uri, long time) {
         this.aid = aid;
-        alarmDate = date;
+        this.time = time;
         packageUri = uri;
     }
 
@@ -23,12 +21,12 @@ public class Alarm {
         return aid;
     }
 
-    public void setAlarmDate(Date date) {
-        alarmDate = date;
+    public void setTime(long time) {
+        this.time = time;
     }
 
-    public Date getAlarmDate() {
-        return alarmDate;
+    public long getTime() {
+        return time;
     }
 
     public void setPackageUri(Uri uri) {

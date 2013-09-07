@@ -1,5 +1,6 @@
 package com.pennapps.disposableapps;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -46,33 +47,26 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
 
         ApplicationInfo ai = getApplicationInfo(alarms.get(position).getPackageUri());
 
-        Drawable iconBitmap = null;
         try {
-             iconBitmap = this.context.getPackageManager().getApplicationIcon(ai.packageName);
-        }
-        catch (PackageManager.NameNotFoundException nameEx) {
-            Log.e("DisposableApps", nameEx.toString());
-        }
+            Drawable iconBitmap = this.context.getPackageManager().getApplicationIcon(ai.packageName);
+            alarmAppIcon.setImageDrawable(iconBitmap);
+        } catch(PackageManager.NameNotFoundException nnfe) {
+            Log.e("DisposableApps", nnfe.toString());
+        } catch(NullPointerException npe) {}
 
-
-        if (db == null){
+        if(db == null) {
             db = new Database(this.context);
         }
 
         Alarm alarm = db.selectAlarmFromPackageUri(alarms.get(position).getPackageUri());
 
-        if (alarm != null)
-        {
-            long remainingTime = alarm.getAlarmDate().getTime() - System.currentTimeMillis();
+        if(alarm != null) {
+            long remainingTime = alarm.getTime() - System.currentTimeMillis();
             long visibleTime = remainingTime < 0 ? System.currentTimeMillis() : remainingTime;
 
-            timeLeftLabel.setText(alarm.getAlarmDate().toString());
+            timeLeftLabel.setText(context.getString(R.string.scheduledUninstall) + new SimpleDateFormat("kk:mm a MMM, dd yyyy").format(new Date(alarm.getTime())));
+            alarmNameLabel.setText(getApplicationLabel(ai));
         }
-        // Set the name on the label
-        if (iconBitmap != null) {
-            alarmAppIcon.setImageDrawable(iconBitmap);
-        }
-        alarmNameLabel.setText(getApplicationLabel(ai));
         
         return view;
     }

@@ -21,7 +21,7 @@ public class BootReceiver extends BroadcastReceiver {
         ArrayList<Alarm> alarms = alarmDb.selectAllAlarms();
 
         for (Alarm info : alarms) {
-            long alarmDate = info.getAlarmDate().getTime();
+            long alarmDate = info.getTime();
             long currentDate = System.currentTimeMillis();
 
             long alarmSetDate = alarmDate - currentDate;

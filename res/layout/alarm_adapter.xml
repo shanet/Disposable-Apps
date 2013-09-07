@@ -21,23 +21,26 @@
 
     </LinearLayout>
 
-    <TextView android:id="@+id/alarmNameLabel"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/thumbnail"
         android:layout_toRightOf="@id/thumbnail"
-        android:layout_marginLeft="10dp"
-        android:textSize="16sp"
-        android:text="@string/nullStr" />
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp">
 
-    <TextView android:id="@+id/timeLeftLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/alarmNameLabel"
-        android:textColor="#888"
-        android:layout_toRightOf="@id/thumbnail"
-        android:layout_marginLeft="15dp"
-        android:textSize="12sp"
-        android:text="@string/nullStr" />
+        <TextView android:id="@+id/alarmNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="@string/nullStr" />
+
+        <TextView android:id="@+id/timeLeftLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/alarmNameLabel"
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:text="@string/nullStr" />
+    </RelativeLayout>
 
 </RelativeLayout>

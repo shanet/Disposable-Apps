@@ -13,6 +13,7 @@
     <string name="editAlarm">Edit Alarm</string>
 
     <string name="timerButton">Set Timer</string>
+    <string name="scheduledUninstall">Scheduled uninstall:&#160;</string>
 
     <string name="timeSpinnerPrompt">Choose a country</string>
     <string-array name="timeSpinnerOptions">
