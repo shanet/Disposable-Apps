@@ -34,6 +34,12 @@ public class Main extends Activity {
         registerAPKInstallReceiver();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupAlarmsList();
+    }
+
     private void setupAlarmsList() {
         ListView alarmsList = (ListView) findViewById(R.id.alarmsList);
         alarmsList.setEmptyView(findViewById(R.id.emptyListLayout));
@@ -75,7 +81,7 @@ public class Main extends Activity {
         }
     }
 
-    public static void showDeleteDialog(final Context context, final Alarm alarm) {
+    /*public static void showDeleteDialog(final Context context, final Alarm alarm) {
         // Show the dialog to confirm the deletion of alarm
         new AlertDialog.Builder(context)
         .setTitle(R.string.deleteRelayTitle)
@@ -95,12 +101,5 @@ public class Main extends Activity {
             public void onClick(DialogInterface dialog, int whichButton) {}
         })
         .show();
-    }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }*/
 }
