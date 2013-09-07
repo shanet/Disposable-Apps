@@ -75,6 +75,28 @@ public class Main extends Activity {
         }
     }
 
+    public static void showDeleteDialog(final Context context, final Alarm alarm) {
+        // Show the dialog to confirm the deletion of alarm
+        new AlertDialog.Builder(context)
+        .setTitle(R.string.deleteRelayTitle)
+        .setMessage(String.format(context.getString(R.string.deleteDialog), alarm.getName()))
+        .setIcon(R.drawable.error_icon)
+        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Delete the alarm from the db
+                new Database(context).deleteRelay(alarm);
+                Toast.makeText(context, R.string.deletedRelay, Toast.LENGTH_SHORT).show();
+                
+                // Tell the main activity to reload the relays
+                ((Main)context).reloadRelaysAndGroupsFromDatabase();
+            }
+        })
+        .setNegativeButton(R.string.nope, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {}
+        })
+        .show();
+    }
+
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
