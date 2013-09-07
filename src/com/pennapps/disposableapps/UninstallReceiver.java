@@ -13,10 +13,10 @@ public class UninstallReceiver extends BroadcastReceiver {
     
     @Override
     public void onReceive(Context context, Intent intent) {
-        Uri packageUri = null;
+        Uri packageUri;
 
         if (intent.getAction().equals(Intent.ACTION_PACKAGE_REMOVED)) {
-            // no need to open uninstall intent because the app is already getting removed.
+            // No need to open uninstall intent because the app is already getting removed
             packageUri = intent.getData();
         } else {
             packageUri = intent.getParcelableExtra("packageUri");
