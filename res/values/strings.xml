@@ -10,6 +10,7 @@
     <string name="timeSpinnerPrompt">Choose a country</string>
     <string-array name="timeSpinnerOptions">
         <item>Forever</item>
+        <item>Ten seconds</item>
         <item>Half hour</item>
         <item>1 Hour</item>
         <item>2 Hours</item>
@@ -22,6 +23,7 @@
 
     <string-array name="timeSpinnerMilliseconds">
         <item>0</item>
+        <item>10000</item>
         <item>1800000</item>
         <item>3600000</item>
         <item>7200000</item>

@@ -33,9 +33,15 @@ public class AppInstalledActivity extends Activity {
             public void onClick(View v) {
                 final Spinner timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
                 final long uninstallTime = Long.parseLong(getResources().getStringArray(R.array.timeSpinnerMilliseconds)[timeSpinner.getSelectedItemPosition()]);
-                setUninstallTimer(uninstallTime, packageUri);
+
+                // Skip the uninstall timer if the forever option was selected
+                if(uninstallTime != 0) {
+                    setUninstallTimer(uninstallTime, packageUri);
+                }
+                finish();
             }
         });
+
     }
 
     private void setUninstallTimer(final long milliseconds, final Uri packageUri) {
