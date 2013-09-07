@@ -20,8 +20,6 @@ public class Main extends Activity {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addAction(Intent.ACTION_INSTALL_PACKAGE);
-        intentFilter.addAction(Intent.ACTION_UNINSTALL_PACKAGE);
-        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
         intentFilter.addDataScheme("package");
         registerReceiver(new PackageReceiver(), intentFilter);
     }

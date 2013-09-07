@@ -25,9 +25,7 @@
         <receiver android:name=".PackageReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.INSTALL_PACKAGE" />
-                <action android:name="android.intent.action.UNINSTALL_PACKAGE" />
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
