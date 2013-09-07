@@ -54,6 +54,8 @@ public class Main extends Activity {
 
         if(alarms.size() > 0) {
             findViewById(R.id.alarmsListLabel).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.alarmsListLabel).setVisibility(View.GONE);
         }
 
         AlarmAdapter alarmAdapter = new AlarmAdapter(this, alarms);
