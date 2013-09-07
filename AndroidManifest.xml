@@ -2,11 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pennapps.disposableapps"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0"
+    android:installLocation="internalOnly">
 
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -31,14 +34,18 @@
 
         <receiver android:process=":remote" android:name="com.pennapps.disposableapps.UninstallReceiver"></receiver>
 
-        <receiver android:name=".PackageReceiver">
+        <receiver android:name="com.pennapps.disposableapps.PackageReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.INSTALL_PACKAGE" />
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <data android:scheme="package"/>
             </intent-filter>
         </receiver>
-    </application>
 
+        <receiver android:name="com.pennapps.disposableapps.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+    </application>
 </manifest>
