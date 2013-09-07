@@ -23,7 +23,19 @@
             </intent-filter>
         </activity>
 
-        <receiver android:process=":remote" android:name="com.pennapps.disposableapps.UninstallReceiver">
+        <activity
+            android:name="com.pennapps.disposableapps.AppInstalledActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+        <receiver android:process=":remote" android:name="com.pennapps.disposableapps.UninstallReceiver"></receiver>
+
+        <receiver android:name=".PackageReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.INSTALL_PACKAGE" />
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package"/>
+            </intent-filter>
         </receiver>
     </application>
 
