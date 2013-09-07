@@ -1,8 +1,14 @@
 package com.pennapps.disposableapps;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
+import android.widget.Toast;
 
 public class Main extends Activity {
 
@@ -10,6 +16,14 @@ public class Main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        intentFilter.addAction(Intent.ACTION_INSTALL_PACKAGE);
+        intentFilter.addAction(Intent.ACTION_UNINSTALL_PACKAGE);
+        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        intentFilter.addDataScheme("package");
+        registerReceiver(new PackageReceiver(), intentFilter);
     }
 
 
