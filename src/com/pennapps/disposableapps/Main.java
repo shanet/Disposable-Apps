@@ -74,6 +74,7 @@ public class Main extends Activity {
                 showEditDialog(this, selectedAlarm.getPackageUri());
                 return true;
             case R.id.uninstallAlarmApp:
+                Utils.setUninstallTimer(this, 100, selectedAlarm.getPackageUri());
                 return true;
             default:
                 return false;
