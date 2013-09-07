@@ -47,7 +47,7 @@ public class AppInstalledActivity extends Activity {
                     alarm.setAid(database.insertAlarm(alarm));
 
                     // Set the timer to uninstall the app
-                    Utils.setUninstallTimer(AppInstalledActivity.this, uninstallTime, packageUri);
+                    Utils.setUninstallTimer(AppInstalledActivity.this, alarm.getAid(), uninstallTime, packageUri);
 
                     Toast.makeText(AppInstalledActivity.this, AppInstalledActivity.this.getString(R.string.timerSet), Toast.LENGTH_SHORT).show();
                 }
