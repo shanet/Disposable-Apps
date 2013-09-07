@@ -25,7 +25,7 @@ public class Main extends Activity {
         intentFilter.addDataScheme("package");
         registerReceiver(new PackageReceiver(), intentFilter);
 
-        //startActivity(new Intent(this, AppInstalledActivity.class));
+        startActivity(new Intent(this, AppInstalledActivity.class));
     }
 
 

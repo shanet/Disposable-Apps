@@ -7,9 +7,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Spinner android:id="@+id/timeSpinner"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="app installed!" />
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:textColor="#000000"
+        android:prompt="@string/timeSpinnerPrompt"
+        android:entries="@array/timeSpinnerOptions"/>
+
+    <Button android:id="@+id/timerButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeSpinner"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:text="@string/timerButton"/>
 
 </RelativeLayout>

@@ -12,7 +12,12 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
+
 
 public class AppInstalledActivity extends Activity {
     @Override
@@ -20,10 +25,23 @@ public class AppInstalledActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_installed);
 
-        Uri packageUri = getIntent().getParcelableExtra("packageUri");
+        final Uri packageUri = getIntent().getParcelableExtra("packageUri");
 
-        // TODO: on button click set the uninstall timer
-        //setUninstallImter();
+        Button timerButton = (Button) findViewById(R.id.timerButton);
+        timerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Spinner timeSpinner = (Spinner) findViewById(R.id.timeSpinner);
+                final long uninstallTime = Long.parseLong(getResources().getStringArray(R.array.timeSpinnerMilliseconds)[timeSpinner.getSelectedItemPosition()]);
+
+                // Skip the uninstall timer if the forever option was selected
+                if(uninstallTime != 0) {
+                    setUninstallTimer(uninstallTime, packageUri);
+                }
+                finish();
+            }
+        });
+
     }
 
     private void setUninstallTimer(final long milliseconds, final Uri packageUri) {

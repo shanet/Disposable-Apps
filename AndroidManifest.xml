@@ -25,7 +25,8 @@
 
         <activity
             android:name="com.pennapps.disposableapps.AppInstalledActivity"
-            android:label="@string/app_name" >
+            android:label="@string/appInstalledActivityTitle"
+            android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
 
         <receiver android:process=":remote" android:name="com.pennapps.disposableapps.UninstallReceiver"></receiver>
