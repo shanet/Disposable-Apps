@@ -81,14 +81,17 @@ public class Database extends SQLiteOpenHelper {
         }
 
         do{
-            alarms.add(new Alarm(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2))));
+            int aid = cursor.getInt(0);
+            String packageString = cursor.getString(1);
+            long date = cursor.getLong(2);
+            alarms.add(new Alarm(aid, Uri.parse(packageString), new Date(date)));
         } while(cursor.moveToNext());
 
         db.close();
         return alarms;
     }
 
-    public Alarm selectAlarmInfoFromPackageUri(Uri packageUri) {
+    public Alarm selectAlarmFromPackageUri(Uri packageUri) {
         if (packageUri == null)
             return null;
 

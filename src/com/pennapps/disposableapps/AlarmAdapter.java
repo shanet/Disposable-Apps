@@ -1,17 +1,21 @@
 package com.pennapps.disposableapps;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -19,6 +23,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
     private Context context;
     private ArrayList<Alarm> alarms;
     private PackageManager pm;
+    private Database db;
     
     public AlarmAdapter(Context context, ArrayList<Alarm> alarms) {
         super(context, R.layout.alarm_adapter, alarms);
@@ -34,15 +39,40 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.alarm_adapter, null);
         }
-        
+
+        ImageView alarmAppIcon = (ImageView) view.findViewById(R.id.list_icon);
         TextView alarmNameLabel = (TextView) view.findViewById(R.id.alarmNameLabel);
         TextView timeLeftLabel = (TextView) view.findViewById(R.id.timeLeftLabel);
 
         ApplicationInfo ai = getApplicationInfo(alarms.get(position).getPackageUri());
-        
+
+        Drawable iconBitmap = null;
+        try {
+             iconBitmap = this.context.getPackageManager().getApplicationIcon(ai.packageName);
+        }
+        catch (PackageManager.NameNotFoundException nameEx) {
+            Log.e("DisposableApps", nameEx.toString());
+        }
+
+
+        if (db == null){
+            db = new Database(this.context);
+        }
+
+        Alarm alarm = db.selectAlarmFromPackageUri(alarms.get(position).getPackageUri());
+
+        if (alarm != null)
+        {
+            long remainingTime = alarm.getAlarmDate().getTime() - System.currentTimeMillis();
+            long visibleTime = remainingTime < 0 ? System.currentTimeMillis() : remainingTime;
+
+            timeLeftLabel.setText(alarm.getAlarmDate().toString());
+        }
         // Set the name on the label
+        if (iconBitmap != null) {
+            alarmAppIcon.setImageDrawable(iconBitmap);
+        }
         alarmNameLabel.setText(getApplicationLabel(ai));
-        timeLeftLabel.setText(getApplicationLabel(ai));
         
         return view;
     }

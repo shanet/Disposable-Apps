@@ -6,8 +6,8 @@
     <string name="nullStr">null</string>
     <string name="appInstalledActivityTitle">App Disposal Time</string>
 
-    <string name="helpLabel">TODO: Write intro/help text</string>
-    <string name="emptyListLabel">No alarms yet.</string>
+    <string name="helpLabel">To add an application to monitor, simply install an app from any source.  You will be prompted for a time limit on the installed app.  If you select \'Forever,\' this app will never prompt you for uninstallation.  Any other option will request you to uninstall the app after the alloted time period. </string>
+    <string name="emptyListLabel">Add applications to monitor.</string>
 
     <string name="cancelAlarm">Cancel Alarm</string>
     <string name="editAlarm">Edit Alarm</string>

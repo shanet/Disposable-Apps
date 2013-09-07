@@ -20,7 +20,7 @@ public class UninstallReceiver extends BroadcastReceiver {
 
         Database db = new Database(context);
 
-        Alarm alarm = db.selectAlarmInfoFromPackageUri(packageUri);
+        Alarm alarm = db.selectAlarmFromPackageUri(packageUri);
         db.deleteAlarm(alarm);
     }
 
