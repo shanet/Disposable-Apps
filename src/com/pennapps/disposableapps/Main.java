@@ -22,10 +22,12 @@ public class Main extends Activity {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addAction(Intent.ACTION_INSTALL_PACKAGE);
+        intentFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
         intentFilter.addDataScheme("package");
         registerReceiver(new PackageReceiver(), intentFilter);
 
-        startActivity(new Intent(this, AppInstalledActivity.class));
+        //startActivity(new Intent(this, AppInstalledActivity.class));
+        Toast.makeText(this, "Test Post, Please Ignore", Toast.LENGTH_SHORT).show();
     }
 
 
