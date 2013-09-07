@@ -20,6 +20,7 @@ public class PackageReceiver extends BroadcastReceiver {
 
         intent = new Intent(context, AppInstalledActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("packageUri", packageUri);
         Log.d("DisposableApps", packageUri.toString());
         context.startActivity(intent);
