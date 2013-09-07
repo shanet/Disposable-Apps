@@ -11,6 +11,15 @@
         android:src="@drawable/background"
         android:scaleType="matrix"/>
 
+    <ImageView android:id="@+id/headerLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_weight=".8"
+        android:src="@drawable/logo"
+        android:scaleType="matrix"/>
+
     <TextView android:id="@+id/alarmsListLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
