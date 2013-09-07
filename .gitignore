@@ -11,9 +11,11 @@
 # generated files
 bin/
 gen/
+.idea/
 
 # Local configuration file (sdk path, etc)
 local.properties
+Disposable-Apps.iml
 
 # Eclipse project files
 .classpath
