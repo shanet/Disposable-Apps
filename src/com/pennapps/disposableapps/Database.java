@@ -48,7 +48,7 @@ public class Database extends SQLiteOpenHelper {
     public Alarm selectAlarm(int aid) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // Query the db for the given relay with rid
+        // Query the db for the given alarm with aid
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS + " WHERE " + FIELD_ALARMS_KEY + " = " + aid, null);
 
         // Go to the first result or result null if it doesn't exist
@@ -57,7 +57,7 @@ public class Database extends SQLiteOpenHelper {
             return null;
         }
 
-        // Create a new Alarm object and return it
+        // Create a new alarm object and return it
         Alarm alarmInfo = new Alarm(cursor.getInt(0), Uri.parse(cursor.getString(1)), new Date(cursor.getInt(2)));
 
         db.close();
@@ -68,7 +68,7 @@ public class Database extends SQLiteOpenHelper {
     public ArrayList<Alarm> selectAllAlarms() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // Query the db for all relays
+        // Query the db for all alarms
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS, null);
 
         // Add each result to an ArrayList
@@ -115,7 +115,7 @@ public class Database extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        // Get info from the relay
+        // Get info from the alarm
         ContentValues values = new ContentValues();
         values.put(FIELD_ALARMS_PACKAGE, alarmInfo.getPackageUri().toString());
         values.put(FIELD_ALARMS_DATE, alarmInfo.getAlarmDate().getTime());
@@ -124,13 +124,10 @@ public class Database extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ALARMS + " WHERE " + FIELD_ALARMS_PACKAGE + " = \"" + alarmInfo.getPackageUri().toString() + "\"", null);
 
         int aid;
-        if (!cursor.moveToFirst())
-        {
+        if (!cursor.moveToFirst()) {
             // Insert the values into the db
             aid = (int)db.insert(TABLE_ALARMS, null, values);
-        }
-        else
-        {
+        } else {
             updateAlarm(alarmInfo);
             aid = alarmInfo.getAid();
         }
@@ -145,10 +142,11 @@ public class Database extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        if (alarmInfo.getAid() < 0)
+        if (alarmInfo.getAid() < 0) {
             return  Constants.FAILURE;
+        }
 
-        // Get info from the relay
+        // Get info from the alarm
         ContentValues values = new ContentValues();
         values.put(FIELD_ALARMS_PACKAGE, alarmInfo.getPackageUri().toString());
         values.put(FIELD_ALARMS_DATE, alarmInfo.getAlarmDate().getTime());
@@ -165,7 +163,7 @@ public class Database extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        // Check that the relay has a valid rid
+        // Check that the alarm has a valid aid
         if(alarmInfo.getAid() < 0) return Constants.FAILURE;
 
         db.delete(TABLE_ALARMS, FIELD_ALARMS_KEY + " = " + alarmInfo.getAid(), null);
