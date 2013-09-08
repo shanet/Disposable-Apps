@@ -5,7 +5,6 @@
     <string name="action_settings">Settings</string>
     <string name="nullStr">null</string>
 
-    <string name="appInstalledActivityTitle">App Disposal Time</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="appInstalledActivityTitle">%s Timer</string>
 

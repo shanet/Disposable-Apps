@@ -19,7 +19,7 @@
         android:scaleX=".8"
         android:scaleY=".8"
         android:src="@drawable/logo"
-        android:scaleType="matrix"/>
+        android:scaleType="centerInside"/>
 
     <TextView android:id="@+id/alarmsListLabel"
         android:layout_width="wrap_content"

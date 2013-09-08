@@ -36,6 +36,9 @@ public class Main extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        Intent bluetoothIntent = new Intent(getApplicationContext(), Bluetooth.class);
+        startActivity(bluetoothIntent);
     }
 
     @Override

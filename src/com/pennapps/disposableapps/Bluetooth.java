@@ -23,6 +23,7 @@ public class Bluetooth extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
         mBluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
+        mArrayAdapter = new ArrayAdapter<String>(this, R.id.bluetoothText);
         String Status;
 
         if(mBluetoothAdapter.isEnabled())
