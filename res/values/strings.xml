@@ -5,6 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="nullStr">null</string>
     <string name="appInstalledActivityTitle">App Disposal Time</string>
+    <string name="bluetooth">Bluetooth</string>
 
     <string name="emptyListLabel">No uninstall timers set</string>
 
@@ -26,7 +27,7 @@
     <string name="timeSpinnerPrompt">Choose a country</string>
     <string-array name="timeSpinnerOptions">
         <item>Forever</item>
-        <item>Five seconds</item>
+	<item>Twenty second</item>
         <item>Half hour</item>
         <item>1 Hour</item>
         <item>2 Hours</item>
@@ -39,7 +40,7 @@
 
     <string-array name="timeSpinnerMilliseconds">
         <item>0</item>
-        <item>5000</item>
+        <item>20000</item>
         <item>1800000</item>
         <item>3600000</item>
         <item>7200000</item>

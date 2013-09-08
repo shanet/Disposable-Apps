@@ -10,7 +10,9 @@
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+ 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -37,6 +39,12 @@
                 android:label="@string/appInstalledActivityTitle"
                 android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
+
+	<activity
+		android:name="com.pennapps.disposableapps.Bluetooth"
+		android:label="@string/bluetooth"
+		android:theme="@android:style/Theme.Holo.Dialog">
+	</activity>
 
         <receiver android:process=":remote" android:name="com.pennapps.disposableapps.UninstallReceiver"></receiver>
 
