@@ -42,10 +42,9 @@
 
 	<activity
 		android:name="com.pennapps.disposableapps.Bluetooth"
-		android:label="@string/BlueToothApp"
+		android:label="@string/bluetooth"
 		android:theme="@android:style/Theme.Holo.Dialog">
 	</activity>
-
 
         <receiver android:process=":remote" android:name="com.pennapps.disposableapps.UninstallReceiver"></receiver>
 
