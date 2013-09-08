@@ -7,6 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -30,6 +32,18 @@ public class AppInstalledActivity extends Activity {
         setContentView(R.layout.app_installed);
 
         final Uri packageUri = getIntent().getParcelableExtra("packageUri");
+
+
+
+        try {
+            final PackageManager pm = getPackageManager();
+            final ApplicationInfo ai = pm.getApplicationInfo(packageUri.toString().replace("package:", ""), 0);
+            final String appTitle = pm.getApplicationLabel(ai).toString();
+            this.setTitle(String.format(getResources().getString(R.string.appInstalledActivityTitle), appTitle));
+        } catch (PackageManager.NameNotFoundException nnfe) {
+
+        }
+
 
         database = new Database(this);
 

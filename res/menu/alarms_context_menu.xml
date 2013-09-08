@@ -6,5 +6,5 @@
 	<item android:id="@+id/cancelAlarm"
 		android:title="@string/cancelAlarm"/>
     <item android:id="@+id/uninstallAlarmApp"
-          android:title="Uninstall App" />
+          android:title="@string/uninstallAlarmApp" />
 </menu>
