@@ -4,17 +4,21 @@
     <string name="app_name">Disposable Apps</string>
     <string name="action_settings">Settings</string>
     <string name="nullStr">null</string>
+
     <string name="appInstalledActivityTitle">App Disposal Time</string>
     <string name="bluetooth">Bluetooth</string>
+    <string name="appInstalledActivityTitle">%s Timer</string>
 
     <string name="emptyListLabel">No uninstall timers set</string>
 
     <string name="cancelAlarm">Cancel Alarm</string>
     <string name="editAlarm">Edit Alarm</string>
+    <string name="uninstallAlarmApp">Uninstall App</string>
 
     <string name="timerButton">Set Timer</string>
     <string name="scheduledUninstall">Scheduled uninstall:&#160;</string>
     <string name="timerSet">Uninstall timer set</string>
+    <string name="alarmsListLabel">Active uninstall timers</string>
 
     <string name="cancelTimerTitle">Cancel Timer</string>
     <string name="cancelTimerDialog">Are you sure you wish to stop monitoring %s?</string>

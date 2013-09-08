@@ -36,4 +36,8 @@ public class Alarm {
     public Uri getPackageUri() {
         return packageUri;
     }
+
+    public String toString() {
+        return "Aid: " + aid + " package: " + packageUri.toString() + " time: " + time;
+    }
 }

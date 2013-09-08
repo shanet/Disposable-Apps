@@ -25,9 +25,9 @@ public class BootReceiver extends BroadcastReceiver {
 
             // want to check for events that passed while shut off or otherwise
             if (alarmSetDate > 0) {
-                Utils.setUninstallTimer(context, alarmSetDate, alarm.getPackageUri());
+                Utils.setUninstallTimer(context, alarm.getAid(), alarmSetDate, alarm.getPackageUri());
             } else {
-                Utils.setUninstallTimer(context, 10000, alarm.getPackageUri());
+                Utils.setUninstallTimer(context, alarm.getAid(), 10000, alarm.getPackageUri());
             }
         }
     }

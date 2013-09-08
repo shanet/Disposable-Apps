@@ -7,6 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -31,6 +33,18 @@ public class AppInstalledActivity extends Activity {
 
         final Uri packageUri = getIntent().getParcelableExtra("packageUri");
 
+
+
+        try {
+            final PackageManager pm = getPackageManager();
+            final ApplicationInfo ai = pm.getApplicationInfo(packageUri.toString().replace("package:", ""), 0);
+            final String appTitle = pm.getApplicationLabel(ai).toString();
+            this.setTitle(String.format(getResources().getString(R.string.appInstalledActivityTitle), appTitle));
+        } catch (PackageManager.NameNotFoundException nnfe) {
+
+        }
+
+
         database = new Database(this);
 
         Button timerButton = (Button) findViewById(R.id.timerButton);
@@ -47,7 +61,7 @@ public class AppInstalledActivity extends Activity {
                     alarm.setAid(database.insertAlarm(alarm));
 
                     // Set the timer to uninstall the app
-                    Utils.setUninstallTimer(AppInstalledActivity.this, uninstallTime, packageUri);
+                    Utils.setUninstallTimer(AppInstalledActivity.this, alarm.getAid(), uninstallTime, packageUri);
 
                     Toast.makeText(AppInstalledActivity.this, AppInstalledActivity.this.getString(R.string.timerSet), Toast.LENGTH_SHORT).show();
                 }

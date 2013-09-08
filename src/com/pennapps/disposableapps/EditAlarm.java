@@ -1,6 +1,8 @@
 package com.pennapps.disposableapps;
 
 import android.app.Activity;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,15 @@ public class EditAlarm extends Activity {
         setContentView(R.layout.app_installed);
 
         final Uri packageUri = getIntent().getParcelableExtra("packageUri");
+
+        try {
+            final PackageManager pm = getPackageManager();
+            final ApplicationInfo ai = pm.getApplicationInfo(packageUri.toString().replace("package:", ""), 0);
+            final String appTitle = pm.getApplicationLabel(ai).toString();
+            this.setTitle(String.format(getResources().getString(R.string.appInstalledActivityTitle), appTitle));
+        } catch (PackageManager.NameNotFoundException nnfe) {
+
+        }
 
         // Get the relay to edit
         final Database db = new Database(this);
@@ -43,7 +54,7 @@ public class EditAlarm extends Activity {
                         db.updateAlarm(alarm);
                     }
                     // Set the timer to uninstall the app
-                    Utils.setUninstallTimer(EditAlarm.this, uninstallTime, packageUri);
+                    Utils.setUninstallTimer(EditAlarm.this, alarm.getAid(), uninstallTime, packageUri);
 
                     Toast.makeText(EditAlarm.this, EditAlarm.this.getString(R.string.timerSet), Toast.LENGTH_SHORT).show();
                 } else {
